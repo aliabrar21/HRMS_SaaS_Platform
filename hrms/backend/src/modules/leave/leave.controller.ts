@@ -53,7 +53,7 @@ export const createLeaveRequest = async (req: Request, res: Response, next: Next
 
     const validatedData = createLeaveSchema.parse(req.body);
 
-    const leave = await prisma.leaveRequest.create({
+    const leave = await prisma.leaveApplication.create({
       data: {
         employeeId: employee.id,
         leaveTypeId: validatedData.leaveTypeId,
@@ -197,7 +197,7 @@ export const getLeaveAnalytics = async (req: Request, res: Response, next: NextF
 };
 export const updateLeaveStatus = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
     const { status } = req.body;
 
     const updated = await prisma.leaveApplication.update({

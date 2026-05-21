@@ -12,7 +12,7 @@ export const getDocuments = async (req: Request, res: Response, next: NextFuncti
       return res.status(400).json({ success: false, message: 'Organization not found' });
     }
 
-    const documents = await prisma.document.findMany({
+    const documents = await prisma.employeeDocument.findMany({
       where: { orgId: actualOrgId },
       include: {
         employee: { select: { firstName: true, lastName: true } }

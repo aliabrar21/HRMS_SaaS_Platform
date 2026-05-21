@@ -15,7 +15,7 @@ export const getAssets = async (req: Request, res: Response, next: NextFunction)
     const assets = await prisma.asset.findMany({
       where: { orgId: actualOrgId },
       include: {
-        assignedTo: { select: { firstName: true, lastName: true } }
+        allocations: { select: { employee: { select: { firstName: true, lastName: true } } } }
       },
       orderBy: { createdAt: 'desc' }
     });

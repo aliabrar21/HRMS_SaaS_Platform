@@ -15,7 +15,7 @@ export const getCourses = async (req: Request, res: Response, next: NextFunction
     const courses = await prisma.course.findMany({
       where: { orgId: actualOrgId },
       include: {
-        _count: { select: { enrollments: true } }
+        _count: { select: { assignments: true } }
       },
       orderBy: { createdAt: 'desc' }
     });

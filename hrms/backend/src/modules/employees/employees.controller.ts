@@ -117,7 +117,7 @@ export const getDesignations = async (req: Request, res: Response, next: NextFun
 
 export const getEmployee = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
     const orgId = (req as any).user?.orgId;
     const actualOrgId = orgId || (await prisma.organization.findFirst())?.id;
 
@@ -141,7 +141,7 @@ export const getEmployee = async (req: Request, res: Response, next: NextFunctio
 
 export const updateEmployee = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
     const orgId = (req as any).user?.orgId;
     const actualOrgId = orgId || (await prisma.organization.findFirst())?.id;
 

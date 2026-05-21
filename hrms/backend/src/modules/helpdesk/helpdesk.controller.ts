@@ -16,7 +16,7 @@ export const getTickets = async (req: Request, res: Response, next: NextFunction
       where: { employee: { orgId: actualOrgId } },
       include: {
         employee: { select: { firstName: true, lastName: true } },
-        assignedTo: { select: { firstName: true, lastName: true } }
+        assignee: { select: { firstName: true, lastName: true } }
       },
       orderBy: { createdAt: 'desc' }
     });

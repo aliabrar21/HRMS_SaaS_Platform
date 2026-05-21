@@ -14,9 +14,6 @@ export const getCandidates = async (req: Request, res: Response, next: NextFunct
 
     const candidates = await prisma.candidate.findMany({
       where: { orgId: actualOrgId },
-      include: {
-        jobPosting: { select: { title: true } }
-      },
       orderBy: { createdAt: 'desc' }
     });
 

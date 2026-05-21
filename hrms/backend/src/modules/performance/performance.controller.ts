@@ -52,37 +52,37 @@ export const getPerformanceAnalytics = async (req: Request, res: Response, next:
         where: { orgId: actualOrgId },
         include: { employee: { include: { department: true } } }
       }),
-      prisma.goals.findMany({ where: { orgId: actualOrgId } }),
-      prisma.okrs.findMany({ where: { orgId: actualOrgId } }),
+      prisma.goal.findMany({ where: { orgId: actualOrgId } }),
+      prisma.okr.findMany({ where: { orgId: actualOrgId } }),
       prisma.department.findMany({ where: { orgId: actualOrgId } })
     ]);
 
     // 2. Aggregate Metrics
     const avgRating = reviews.length > 0 
-      ? reviews.reduce((acc, r) => acc + (r.overallRating || 0), 0) / reviews.filter(r => r.overallRating).length 
+      ? reviews.reduce((acc: number, r: any) => acc + (r.overallRating || 0), 0) / reviews.filter((r: any) => r.overallRating).length 
       : 4.2;
 
     const completionRate = reviews.length > 0
-      ? (reviews.filter(r => r.status === 'COMPLETED').length / reviews.length) * 100
+      ? (reviews.filter((r: any) => r.status === 'COMPLETED').length / reviews.length) * 100
       : 85;
 
     const goalCompletionPct = goals.length > 0
-      ? goals.reduce((acc, g) => acc + g.progressPct, 0) / goals.length
+      ? goals.reduce((acc: number, g: any) => acc + g.progressPct, 0) / goals.length
       : 72;
 
     // 3. Bell Curve Distribution
     const distribution = [
-      { name: 'Needs Improvement', count: reviews.filter(r => (r.overallRating || 0) < 2).length || 5, color: '#f87171' },
-      { name: 'Meets Expectations', count: reviews.filter(r => (r.overallRating || 0) >= 2 && (r.overallRating || 0) < 4).length || 45, color: '#60a5fa' },
-      { name: 'Exceeds Expectations', count: reviews.filter(r => (r.overallRating || 0) >= 4 && (r.overallRating || 0) < 4.5).length || 35, color: '#34d399' },
-      { name: 'Outstanding', count: reviews.filter(r => (r.overallRating || 0) >= 4.5).length || 15, color: '#fbbf24' },
+      { name: 'Needs Improvement', count: reviews.filter((r: any) => (r.overallRating || 0) < 2).length || 5, color: '#f87171' },
+      { name: 'Meets Expectations', count: reviews.filter((r: any) => (r.overallRating || 0) >= 2 && (r.overallRating || 0) < 4).length || 45, color: '#60a5fa' },
+      { name: 'Exceeds Expectations', count: reviews.filter((r: any) => (r.overallRating || 0) >= 4 && (r.overallRating || 0) < 4.5).length || 35, color: '#34d399' },
+      { name: 'Outstanding', count: reviews.filter((r: any) => (r.overallRating || 0) >= 4.5).length || 15, color: '#fbbf24' },
     ];
 
     // 4. Department Heatmap
-    const heatmap = departments.map(dept => {
-      const deptReviews = reviews.filter(r => r.employee.departmentId === dept.id);
+    const heatmap = departments.map((dept: any) => {
+      const deptReviews = reviews.filter((r: any) => r.employee.departmentId === dept.id);
       const avgDeptRating = deptReviews.length > 0
-        ? deptReviews.reduce((acc, r) => acc + (r.overallRating || 0), 0) / deptReviews.length
+        ? deptReviews.reduce((acc: number, r: any) => acc + (r.overallRating || 0), 0) / deptReviews.length
         : 3.5 + Math.random();
       return {
         name: dept.name,
@@ -93,7 +93,7 @@ export const getPerformanceAnalytics = async (req: Request, res: Response, next:
 
     // 5. Monthly Trends (Mock for last 6 months)
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
-    const trends = months.map(m => ({
+    const trends = months.map((m: any) => ({
       name: m,
       rating: 3.8 + Math.random() * 0.7,
       completion: 60 + Math.random() * 35
@@ -101,10 +101,10 @@ export const getPerformanceAnalytics = async (req: Request, res: Response, next:
 
     // 6. Top Performers
     const topPerformers = reviews
-      .filter(r => r.overallRating)
-      .sort((a, b) => (b.overallRating || 0) - (a.overallRating || 0))
+      .filter((r: any) => r.overallRating)
+      .sort((a: any, b: any) => (b.overallRating || 0) - (a.overallRating || 0))
       .slice(0, 5)
-      .map(r => ({
+      .map((r: any) => ({
         id: r.employeeId,
         name: `${r.employee.firstName} ${r.employee.lastName}`,
         rating: r.overallRating,
