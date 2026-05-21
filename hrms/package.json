@@ -7,6 +7,7 @@
     "dev": "concurrently \"pnpm dev:api\" \"pnpm dev:web\"",
     "dev:web": "pnpm --filter @hrms/web dev",
     "dev:api": "pnpm --filter @hrms/api dev",
+    "start": "pnpm --filter @hrms/api start",
     "build": "pnpm -r build",
     "lint": "pnpm -r lint",
     "typecheck": "pnpm -r typecheck",
