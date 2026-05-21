@@ -39,6 +39,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(apiRateLimiter);
 
+app.get('/', (_req, res) => {
+  res.json({ message: 'Welcome to the HRMS API. The server is running successfully!' });
+});
+
 app.get('/api/health', (_req, res) => {
   res.json({ success: true, data: { status: 'ok' }, message: 'Healthy' });
 });

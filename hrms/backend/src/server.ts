@@ -21,7 +21,7 @@ io.on('connection', (socket) => {
   });
 });
 
-const port = 4000;
+const port = process.env.PORT || 4000;
 httpServer.listen(port, () => {
-  logger.info(`API server started on http://localhost:${port}`);
+  logger.info(`API server started on port ${port}`);
 });
