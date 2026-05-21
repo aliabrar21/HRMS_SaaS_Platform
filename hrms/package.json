@@ -1,0 +1,36 @@
+{
+  "name": "hrms",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@10.30.3",
+  "scripts": {
+    "dev": "concurrently \"pnpm dev:api\" \"pnpm dev:web\"",
+    "dev:web": "pnpm --filter @hrms/web dev",
+    "dev:api": "pnpm --filter @hrms/api dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "format": "prettier --write .",
+    "prepare": "husky",
+    "db:generate": "pnpm --filter @hrms/api prisma:generate",
+    "db:migrate": "pnpm --filter @hrms/api prisma:migrate",
+    "db:seed": "pnpm --filter @hrms/api prisma:seed"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.9",
+    "@typescript-eslint/eslint-plugin": "^8.25.0",
+    "@typescript-eslint/parser": "^8.25.0",
+    "concurrently": "^9.1.2",
+    "eslint": "^9.21.0",
+    "eslint-config-prettier": "^10.0.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3",
+    "prettier": "^3.5.2",
+    "typescript": "^5.8.2"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,json,md,cjs,mjs}": [
+      "prettier --write"
+    ]
+  }
+}

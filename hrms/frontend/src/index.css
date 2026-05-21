@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 220 22% 97%;
+  --foreground: 222 26% 16%;
+}
+
+.dark {
+  --background: 222 24% 10%;
+  --foreground: 210 40% 96%;
+}
+
+body {
+  @apply bg-muted text-foreground antialiased;
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
