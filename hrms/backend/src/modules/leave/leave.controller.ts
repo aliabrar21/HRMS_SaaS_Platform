@@ -55,10 +55,12 @@ export const createLeaveRequest = async (req: Request, res: Response, next: Next
 
     const leave = await prisma.leaveApplication.create({
       data: {
+        orgId: actualOrgId,
         employeeId: employee.id,
         leaveTypeId: validatedData.leaveTypeId,
-        startDate: new Date(validatedData.startDate),
-        endDate: new Date(validatedData.endDate),
+        fromDate: new Date(validatedData.startDate),
+        toDate: new Date(validatedData.endDate),
+        totalDays: 1, // Mock
         reason: validatedData.reason,
         status: 'PENDING',
       },
